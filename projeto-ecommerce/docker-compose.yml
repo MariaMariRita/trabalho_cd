@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: postgress_db
+    environment:
+      POSTGRSS_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ecommerce
+    volumes:
+     - db_data:/var/lib/postgressql/data
+  app:
+    build: .
+    container_name: dashboard_app
+    depends_on:
+      - db
+    ports:
+      - "8501:8501"
+volumes:
+  db_data:
